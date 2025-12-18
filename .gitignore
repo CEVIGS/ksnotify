@@ -1,0 +1,4 @@
+build/
+.venv/
+ksnotify.egg-info/
+

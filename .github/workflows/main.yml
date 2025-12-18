@@ -1,0 +1,27 @@
+name: ksnotify
+on:
+  workflow_dispatch:
+  # push:
+  schedule:
+    - cron: "15 1 * * *"
+
+# permissions:
+#   contents: write
+
+jobs:
+  pfp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5.0.0
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: run
+        env:
+          BSCRT_ID: ${{ secrets.ID }}
+          BSCRT_UN: ${{ secrets.UN }}
+          BSCRT_PW: ${{ secrets.PW }}
+          BSCRT_URL: ${{ secrets.URL }}
+        run: |
+          uv run main.py
+
