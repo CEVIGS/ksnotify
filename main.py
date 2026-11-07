@@ -24,8 +24,12 @@ def to_b64(img: Image.Image):
 def get_anomalies(table: list[bc.Lesson], mode: dict[str, dict[str, dict[str, bc.Lesson]]]) -> list[bc.Lesson]:
     ret = []
     for lesson in table:
-        associated_lesson = mode[lesson.week_a_b][lesson.start.strftime("%A")][lesson.period]
+        try:
+            associated_lesson = mode[lesson.week_a_b][lesson.start.strftime("%A")][lesson.period]
+        except KeyError:
+            associated_lesson = None
         if any((
+            associated_lesson is None,
             lesson.room != associated_lesson.room,
             lesson.subject != associated_lesson.subject,
             lesson.teacher != associated_lesson.teacher
