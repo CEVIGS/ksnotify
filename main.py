@@ -28,8 +28,7 @@ def get_anomalies(table: list[bc.Lesson], mode: dict[str, dict[str, dict[str, bc
             associated_lesson = mode[lesson.week_a_b][lesson.start.strftime("%A")][lesson.period]
         except KeyError:
             associated_lesson = None
-        if any((
-            associated_lesson is None,
+        if associated_lesson is None or any((
             lesson.room != associated_lesson.room,
             lesson.subject != associated_lesson.subject,
             lesson.teacher != associated_lesson.teacher
